@@ -1,10 +1,302 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editorial Project</title>
+
+    <!-- Подключаем контрастные шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Alex+Brush&family=Inter:wght@300;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-desk: #f0f0f0; /* Цвет стола */
+            --paper-left: #f4e9e9; /* Пыльно-розовая бумага */
+            --paper-right: #fcfbf9; /* Белая бумага */
+            --text-dark: #1a1a1a;
+            --accent: #8a2be2; /* Цвет для ссылок/акцентов (можно заменить на красный) */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-desk);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        /* Сам разворот */
+        .magazine-spread {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            min-height: 85vh;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+            position: relative;
+            /* Эффект легкого шума на бумаге */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+
+        /* Левая страница (Розовая) */
+        .page-left {
+            background-color: var(--paper-left);
+            width: 50%;
+            padding: 50px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* Правая страница (Белая) */
+        .page-right {
+            background-color: var(--paper-right);
+            width: 50%;
+            padding: 50px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Огромный фоновый текст (как на референсах) */
+        .bg-text {
+            position: absolute;
+            font-family: 'Alex Brush', cursive;
+            font-size: 12vw;
+            color: rgba(0,0,0,0.06);
+            top: 10%;
+            left: -10%;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 0;
+            transform: rotate(-10deg);
+        }
+
+        .bg-text-outline {
+            position: absolute;
+            font-family: 'Bodoni Moda', serif;
+            font-size: 10vw;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(0,0,0,0.1);
+            bottom: 5%;
+            right: -5%;
+            pointer-events: none;
+            z-index: 0;
+            text-transform: uppercase;
+        }
+
+        /* Заголовки */
+        .title-serif {
+            font-family: 'Bodoni Moda', serif;
+            font-size: 64px;
+            line-height: 0.9;
+            color: var(--text-dark);
+            position: relative;
+            z-index: 2;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        .title-script {
+            font-family: 'Alex Brush', cursive;
+            font-size: 80px;
+            color: var(--text-dark);
+            position: relative;
+            z-index: 3;
+            margin-top: -50px; /* Наложение */
+            margin-left: 20px;
+            transform: rotate(-5deg);
+        }
+
+        /* Навигация (как оглавление) */
+        .nav-list {
+            list-style: none;
+            position: relative;
+            z-index: 2;
+            margin-top: 50px;
+        }
+
+        .nav-list li {
+            font-family: 'Bodoni Moda', serif;
+            font-size: 28px;
+            border-bottom: 1px solid rgba(0,0,0,0.2);
+            padding: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .nav-list li span {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.5;
+            align-self: flex-end;
+        }
+
+        .nav-list li:hover {
+            padding-left: 10px;
+            color: var(--accent);
+        }
+
+        /* Текстовый блок (как колонки в журнале) */
+        .article-text {
+            font-size: 13px;
+            line-height: 1.6;
+            column-count: 2; /* Разбиваем на две колонки */
+            column-gap: 30px;
+            text-align: justify;
+            position: relative;
+            z-index: 2;
+        }
+
+        .article-text p {
+            margin-bottom: 15px;
+        }
+
+        .article-text p:first-child::first-letter {
+            font-family: 'Bodoni Moda', serif;
+            font-size: 48px;
+            float: left;
+            line-height: 0.8;
+            padding-right: 8px;
+            padding-top: 5px;
+        }
+
+        /* Блок с цитатой / задачей */
+        .quote-block {
+            position: relative;
+            z-index: 2;
+            margin-top: 40px;
+            padding: 20px;
+            border-left: 2px solid var(--text-dark);
+            background-color: rgba(255,255,255,0.4);
+        }
+
+        .quote-block h3 {
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .quote-block p {
+            font-family: 'Bodoni Moda', serif;
+            font-style: italic;
+            font-size: 18px;
+        }
+
+        /* Прогресс */
+        .progress-wrap {
+            margin-top: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 2px;
+            background: rgba(0,0,0,0.1);
+        }
+
+        .progress-fill {
+            width: 65%;
+            height: 100%;
+            background: var(--text-dark);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 900px) {
+            .magazine-spread {
+                flex-direction: column;
+            }
+            .page-left, .page-right {
+                width: 100%;
+                min-height: 50vh;
+            }
+            .title-serif { font-size: 48px; }
+            .title-script { font-size: 60px; margin-top: -30px; }
+            .bg-text { font-size: 30vw; }
+            .article-text { column-count: 1; }
+        }
+    </style>
 </head>
 <body>
+
+    <div class="magazine-spread">
+
+        <!-- ЛЕВАЯ СТРАНИЦА -->
+        <div class="page-left">
+            <div class="bg-text">Project</div>
+
+            <div class="title-serif">Мой<br>Проект</div>
+            <div class="title-script">navigation</div>
+
+            <ul class="nav-list">
+                <li>Глава 1 <span>01</span></li>
+                <li>Глава 2 <span>02</span></li>
+                <li>Глава 3 <span>03</span></li>
+                <li>Глава 4 <span>04</span></li>
+            </ul>
+
+            <div class="progress-wrap">
+                <div class="progress-label">
+                    <span>Прогресс проекта</span>
+                    <span>65%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ПРАВАЯ СТРАНИЦА -->
+        <div class="page-right">
+            <div class="bg-text-outline">TASKS</div>
+
+            <div class="article-text">
+                <p>Новогодние праздники приближаются, а значит уже пора выбирать и покупать мне подарки! Чтобы облегчить эту задачу, был создан этот сайт. Здесь собраны общие задачи, цели и замечания научного руководителя.</p>
+                <p>Этот текст стилизован под газетную статью с буквицей (Drop Cap) в начале. Вы можете выводить сюда любые данные из вашей модели Django. Задачи обновляются в зависимости от выбранной главы в меню слева.</p>
+            </div>
+
+            <div class="quote-block">
+                <h3>Замечания научрука</h3>
+                <p>«Отличный старт, но стоит углубить теоретическую часть и добавить больше ссылок на источники. Работа с макетом выглядит многообещающе».</p>
+            </div>
+
+            <div class="quote-block" style="border-left-color: var(--accent);">
+                <h3>Текущая задача</h3>
+                <p>Собрать литературу и закончить введение к третьей главе.</p>
+            </div>
+
+        </div>
+
+    </div>
 
 </body>
 </html>

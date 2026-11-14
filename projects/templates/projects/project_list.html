@@ -1,10 +1,312 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Список проектов</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная | Мои Проекты</title>
+
+    <!-- Шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Alex+Brush&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-desk: #e8e6e1;
+            --paper-left: #f4e9e9; /* Пыльно-розовый */
+            --paper-right: #fcfbf9; /* Теплый белый */
+            --text-dark: #111;
+            --accent: #8a2be2; /* Акцентный цвет */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Контейнер разворота */
+        .magazine-spread {
+            display: flex;
+            width: 100%;
+            max-width: 1500px;
+            min-height: 90vh;
+            position: relative;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+        }
+
+        /* --- ЛЕВАЯ СТРАНИЦА (ФУНКЦИОНАЛ) --- */
+        .page-left {
+            background-color: var(--paper-left);
+            width: 55%; /* Сделаем её чуть шире правой */
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* Заголовки */
+        .page-title {
+            font-family: 'Bodoni Moda', serif;
+            font-size: 72px;
+            line-height: 0.9;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            margin-bottom: 10px;
+            z-index: 2;
+        }
+
+        .page-subtitle {
+            font-family: 'Alex Brush', cursive;
+            font-size: 48px;
+            color: var(--text-dark);
+            margin-top: -20px;
+            margin-left: 40px;
+            transform: rotate(-4deg);
+            z-index: 2;
+            margin-bottom: 40px;
+        }
+
+        /* Список проектов */
+        .project-list {
+            list-style: none;
+            z-index: 2;
+            margin-bottom: 40px;
+        }
+
+        .project-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0,0,0,0.2);
+            padding: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-dark);
+        }
+
+        .project-item:hover {
+            padding-left: 15px;
+            background: rgba(255,255,255,0.3);
+        }
+
+        .project-name {
+            font-family: 'Bodoni Moda', serif;
+            font-size: 26px;
+        }
+
+        .project-date {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.6;
+        }
+
+        /* Кнопка добавления */
+        .btn-add {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            align-self: flex-start;
+            padding: 15px 30px;
+            background-color: var(--text-dark);
+            color: var(--paper-left);
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 30px;
+            transition: all 0.3s;
+            z-index: 2;
+        }
+
+        .btn-add:hover {
+            background-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Прогресс бар внизу */
+        .progress-wrap {
+            margin-top: auto;
+            z-index: 2;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(0,0,0,0.1);
+        }
+
+        .progress-fill {
+            width: 35%; /* Прогресс всех проектов */
+            height: 100%;
+            background: var(--text-dark);
+        }
+
+        /* --- ПРАВАЯ СТРАНИЦ (ДЕКОР) --- */
+        .page-right {
+            background-color: var(--paper-right);
+            width: 45%;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Декоративный текст на фоне */
+        .bg-text-script {
+            position: absolute;
+            font-family: 'Alex Brush', cursive;
+            font-size: 150px;
+            color: rgba(0,0,0,0.04);
+            top: 10%;
+            right: -20%;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 0;
+            transform: rotate(-15deg);
+        }
+
+        /* Изображение */
+        .hero-image {
+            width: 100%;
+            height: 50%;
+            background-color: #ddd; /* Заглушка */
+            /* Сюда можно вставить реальную картинку: */
+            /* background-image: url('твоя-картинка.jpg'); */
+            /* background-size: cover; */
+            /* background-position: center; */
+            border-radius: 2px;
+            filter: grayscale(40%) sepia(20%); /* Эффект старой пленки */
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(0,0,0,0.3);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Цитата */
+        .quote {
+            margin-top: 40px;
+            z-index: 1;
+            text-align: right;
+            padding-right: 20px;
+        }
+
+        .quote p {
+            font-family: 'Bodoni Moda', serif;
+            font-size: 28px;
+            font-style: italic;
+            line-height: 1.2;
+            color: var(--text-dark);
+        }
+
+        .quote span {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 15px;
+            opacity: 0.6;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 1000px) {
+            .magazine-spread { flex-direction: column; }
+            .page-left, .page-right { width: 100%; padding: 40px; }
+            .page-left { min-height: 60vh; }
+            .page-title { font-size: 50px; }
+            .page-subtitle { font-size: 36px; margin-top: -10px; }
+            .hero-image { height: 300px; }
+            .bg-text-script { font-size: 100px; }
+        }
+    </style>
 </head>
 <body>
+
+    <div class="magazine-spread">
+
+        <!-- ЛЕВАЯ СТРАНИЦА: РАБОЧАЯ ЗОНА -->
+        <div class="page-left">
+            <h1 class="page-title">Мои<br>Проекты</h1>
+            <div class="page-subtitle">slay</div>
+
+            <!-- Список проектов (в Django тут будет цикл) -->
+            <ul class="project-list">
+                {% for project in projects %}
+                    <!-- Пример 1 -->
+                    <a href="{% url 'projects:project_detail' project.id %}" class="project-item">
+                        <span class="project-name">{{ project.title }}</span>
+                        <span class="project-date">{{ project.created_at|date:"M Y" }}</span>
+                    </a>
+                {% empty %}
+                    <li class="project-item">
+                        <span class="project-name">В базе пока нет проектов...</span>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <!-- Кнопка добавления -->
+            <a href="#" class="btn-add">+ Добавить новый</a>
+
+            <!-- Прогресс внизу страницы -->
+            <div class="progress-wrap">
+                <div class="progress-label">
+                    <span>Общий прогресс за месяц</span>
+                    <span>35%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ПРАВАЯ СТРАНИЦА: ДЕКОР -->
+        <div class="page-right">
+            <div class="bg-text-script">Inspire</div>
+
+            <!-- Картинка-заглушка -->
+            <div class="hero-image">
+                <!-- Сюда можно вставить тег <img> -->
+                [ Место для красивой картинки ]
+            </div>
+
+            <!-- Цитата -->
+            <div class="quote">
+                <p>«Творчество — это интеллект, получающий удовольствие от игры»</p>
+                <span>— Альберт Эйнштейн</span>
+            </div>
+        </div>
+
+    </div>
 
 </body>
 </html>
