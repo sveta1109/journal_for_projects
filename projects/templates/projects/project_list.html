@@ -46,7 +46,7 @@
         /* --- ЛЕВАЯ СТРАНИЦА (ФУНКЦИОНАЛ) --- */
         .page-left {
             background-color: var(--paper-left);
-            width: 55%; /* Сделаем её чуть шире правой */
+            width: 55%;
             padding: 60px;
             position: relative;
             overflow: hidden;
@@ -98,7 +98,7 @@
 
         .project-item:hover {
             padding-left: 15px;
-            background: rgba(255,255,255,0.3);
+            background: var(--paper-left);
         }
 
         .project-name {
@@ -133,7 +133,7 @@
         }
 
         .btn-add:hover {
-            background-color: var(--accent);
+            background-color: white;
             transform: translateY(-2px);
         }
 
@@ -160,7 +160,7 @@
         }
 
         .progress-fill {
-            width: 35%; /* Прогресс всех проектов */
+            width: 35%;
             height: 100%;
             background: var(--text-dark);
         }
@@ -257,7 +257,6 @@
         <!-- ЛЕВАЯ СТРАНИЦА: РАБОЧАЯ ЗОНА -->
         <div class="page-left">
             <h1 class="page-title">Мои<br>Проекты</h1>
-            <div class="page-subtitle">slay</div>
 
             <!-- Список проектов (в Django тут будет цикл) -->
             <ul class="project-list">

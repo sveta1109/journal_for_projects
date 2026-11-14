@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from .models import Project
+from .models import Project, Chapter
 
 
 # Create your views here.
@@ -11,7 +11,8 @@ def project_list(request):
 
 def project_detail(request, pk):
     project = get_object_or_404(Project, pk=pk)
-    return render(request, 'project_details.html', {'project': project})
+    all_chapters = Chapter.objects.all()
+    return render(request, 'projects/project_detail.html', {'project': project}, {'chapters': all_chapters})
 
 
 def chapter_detail(request):
