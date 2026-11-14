@@ -8,13 +8,7 @@
     <h1>Страница проекта: {{ project.title }}</h1>
     <p>Дедлайн: {{ project.deadline }}</p>
     <p>Описание: {{ project.description }}</p>
-    {% for chapter in chapters %}
-        <a href="{% url 'projects:chapter' chapter.id %}"> глава </a>
-    {% empty %}
-        <li>
-            <p>В базе пока нет проектов...</p>
-        </li>
-    {% endfor %}
+
     <br>
     <a href="{% url 'projects:project_list' %}">Назад</a>
 </body>
