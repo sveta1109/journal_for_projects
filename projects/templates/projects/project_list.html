@@ -8,16 +8,13 @@
     <!-- Шрифты -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Alex+Brush&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p&display=swap" rel="stylesheet">
 
     <style>
-        :root {
-            --bg-desk: #e8e6e1;
-            --paper-left: #f4e9e9; /* Пыльно-розовый */
-            --paper-right: #fcfbf9; /* Теплый белый */
-            --text-dark: #111;
-            --accent: #8a2be2; /* Акцентный цвет */
-        }
 
         * {
             box-sizing: border-box;
@@ -26,7 +23,7 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Hachi Maru Pop', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -40,16 +37,15 @@
             max-width: 1500px;
             min-height: 90vh;
             position: relative;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+            background-color: #EEE1CB;
         }
 
         /* --- ЛЕВАЯ СТРАНИЦА (ФУНКЦИОНАЛ) --- */
         .page-left {
-            background-color: var(--paper-left);
+            background-color: #EEE1CB;
             width: 55%;
             padding: 60px;
             position: relative;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
             border-right: 1px solid rgba(0,0,0,0.05);
@@ -57,7 +53,7 @@
 
         /* Заголовки */
         .page-title {
-            font-family: 'Bodoni Moda', serif;
+            font-family: 'M PLUS 1p', serif;
             font-size: 72px;
             line-height: 0.9;
             text-transform: uppercase;
@@ -66,16 +62,6 @@
             z-index: 2;
         }
 
-        .page-subtitle {
-            font-family: 'Alex Brush', cursive;
-            font-size: 48px;
-            color: var(--text-dark);
-            margin-top: -20px;
-            margin-left: 40px;
-            transform: rotate(-4deg);
-            z-index: 2;
-            margin-bottom: 40px;
-        }
 
         /* Список проектов */
         .project-list {
@@ -98,11 +84,10 @@
 
         .project-item:hover {
             padding-left: 15px;
-            background: var(--paper-left);
         }
 
         .project-name {
-            font-family: 'Bodoni Moda', serif;
+            font-family: 'M PLUS 1p', serif;
             font-size: 26px;
         }
 
@@ -123,7 +108,7 @@
             background-color: var(--text-dark);
             color: var(--paper-left);
             text-decoration: none;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Hachi Maru Pop', sans-serif;
             font-size: 13px;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -143,28 +128,6 @@
             z-index: 2;
         }
 
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 4px;
-            background: rgba(0,0,0,0.1);
-        }
-
-        .progress-fill {
-            width: 35%;
-            height: 100%;
-            background: var(--text-dark);
-        }
-
         /* --- ПРАВАЯ СТРАНИЦ (ДЕКОР) --- */
         .page-right {
             background-color: var(--paper-right);
@@ -177,19 +140,6 @@
             justify-content: space-between;
         }
 
-        /* Декоративный текст на фоне */
-        .bg-text-script {
-            position: absolute;
-            font-family: 'Alex Brush', cursive;
-            font-size: 150px;
-            color: rgba(0,0,0,0.04);
-            top: 10%;
-            right: -20%;
-            white-space: nowrap;
-            pointer-events: none;
-            z-index: 0;
-            transform: rotate(-15deg);
-        }
 
         /* Изображение */
         .hero-image {
@@ -221,16 +171,15 @@
         }
 
         .quote p {
-            font-family: 'Bodoni Moda', serif;
-            font-size: 28px;
-            font-style: italic;
+            font-family: 'Hachi Maru Pop', serif;
+            font-size: 20px;
             line-height: 1.2;
             color: var(--text-dark);
         }
 
         .quote span {
             display: block;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Hachi Maru Pop', sans-serif;
             font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -276,17 +225,6 @@
             <!-- Кнопка добавления -->
             <a href="#" class="btn-add">+ Добавить новый</a>
 
-            <!-- Прогресс внизу страницы -->
-            <div class="progress-wrap">
-                <div class="progress-label">
-                    <span>Общий прогресс за месяц</span>
-                    <span>35%</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
-            </div>
-        </div>
 
         <!-- ПРАВАЯ СТРАНИЦА: ДЕКОР -->
         <div class="page-right">
@@ -300,8 +238,11 @@
 
             <!-- Цитата -->
             <div class="quote">
-                <p>«Творчество — это интеллект, получающий удовольствие от игры»</p>
-                <span>— Альберт Эйнштейн</span>
+                <p>«Что ж ты, фраер, сдал назад,
+                    Не по масти я тебе –
+                    Ты смотри в мои глаза,
+                    Брось трепаться о судьбе….»</p>
+                <span>— Михаил Круг</span>
             </div>
         </div>
 
