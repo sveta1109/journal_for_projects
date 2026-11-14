@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -26,8 +27,24 @@
             font-family: 'Hachi Maru Pop', sans-serif;
             display: flex;
             justify-content: center;
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            padding-top: 20px;
+        }
+        .important-widget {
+            font-family: 'Hachi Maru Pop', sans-serif;
+            font-size: 14px;
+            color: black;
+            width: 100%;
+            max-width: 1500px;
+            padding: 0px 60px 10px 60px;
+
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            box-sizing: border-box;
         }
 
         /* Контейнер разворота */
@@ -137,34 +154,35 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            gap: 30px;
         }
 
 
         /* Изображение */
-        .hero-image {
+        .image img {
+             width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top; /* <-- ДОБАВИТЬ ЭТО. Прижимает картинку к верху, показывая морду */
+            display: block;
+        }
+
+
+        .image  {
             width: 100%;
-            height: 50%;
-            background-color: #ddd; /* Заглушка */
-            /* Сюда можно вставить реальную картинку: */
-            /* background-image: url('твоя-картинка.jpg'); */
-            /* background-size: cover; */
-            /* background-position: center; */
+            flex-grow: 1; /* <-- ВАЖНО: заставляет картинку растянуться на всё доступное место */
+            background-color: #ddd;
             border-radius: 2px;
-            filter: grayscale(40%) sepia(20%); /* Эффект старой пленки */
+            filter: grayscale(40%) sepia(20%);
             z-index: 1;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(0,0,0,0.3);
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
-
         /* Цитата */
         .quote {
-            margin-top: 40px;
+            margin-top: auto;
             z-index: 1;
             text-align: right;
             padding-right: 20px;
@@ -194,59 +212,63 @@
             .page-left { min-height: 60vh; }
             .page-title { font-size: 50px; }
             .page-subtitle { font-size: 36px; margin-top: -10px; }
-            .hero-image { height: 300px; }
+            .image { height: 300px; }
             .bg-text-script { font-size: 100px; }
         }
     </style>
 </head>
 <body>
+<div class="important-widget">
+    <div id="current-date"></div>
+    <div id="current-time"></div>
+</div>
 
-    <div class="magazine-spread">
+<div class="magazine-spread">
 
-        <!-- ЛЕВАЯ СТРАНИЦА: РАБОЧАЯ ЗОНА -->
-        <div class="page-left">
-            <h1 class="page-title">Мои<br>Проекты</h1>
+    <!-- ЛЕВАЯ СТРАНИЦА: РАБОЧАЯ ЗОНА -->
+    <div class="page-left">
+        <h1 class="page-title">Мои<br>Проекты</h1>
 
-            <!-- Список проектов (в Django тут будет цикл) -->
-            <ul class="project-list">
-                {% for project in projects %}
-                    <!-- Пример 1 -->
-                    <a href="{% url 'projects:project_detail' project.id %}" class="project-item">
-                        <span class="project-name">{{ project.title }}</span>
-                        <span class="project-date">{{ project.created_at|date:"M Y" }}</span>
-                    </a>
-                {% empty %}
-                    <li class="project-item">
-                        <span class="project-name">В базе пока нет проектов...</span>
-                    </li>
-                {% endfor %}
-            </ul>
+        <!-- Список проектов (в Django тут будет цикл) -->
+        <ul class="project-list">
+            {% for project in projects %}
+            <!-- Пример 1 -->
+            <a href="{% url 'projects:project_detail' project.id %}" class="project-item">
+                <span class="project-name">{{ project.title }}</span>
+                <span class="project-date">{{ project.created_at|date:"M Y" }}</span>
+            </a>
+            {% empty %}
+            <li class="project-item">
+                <span class="project-name">В базе пока нет проектов...</span>
+            </li>
+            {% endfor %}
+        </ul>
 
-            <!-- Кнопка добавления -->
-            <a href="#" class="btn-add">+ Добавить новый</a>
+        <!-- Кнопка добавления -->
+        <a href="#" class="btn-add">+ Добавить новый</a></div>
 
 
-        <!-- ПРАВАЯ СТРАНИЦА: ДЕКОР -->
-        <div class="page-right">
-            <div class="bg-text-script">Inspire</div>
+    <!-- ПРАВАЯ СТРАНИЦА: ДЕКОР -->
+    <div class="page-right">
 
-            <!-- Картинка-заглушка -->
-            <div class="hero-image">
-                <!-- Сюда можно вставить тег <img> -->
-                [ Место для красивой картинки ]
-            </div>
 
-            <!-- Цитата -->
-            <div class="quote">
-                <p>«Что ж ты, фраер, сдал назад,
-                    Не по масти я тебе –
-                    Ты смотри в мои глаза,
-                    Брось трепаться о судьбе….»</p>
-                <span>— Михаил Круг</span>
-            </div>
+        <!-- Картинка-заглушка -->
+        <div class="image">
+            <!-- Сюда можно вставить тег <img> -->
+            <img src="https://i.pinimg.com/736x/ae/bf/37/aebf374f4b2252819d0ff52d410c7b00.jpg">
         </div>
 
+        <!-- Цитата -->
+        <div class="quote">
+            <p>«Что ж ты, фраер, сдал назад,
+                Не по масти я тебе –
+                Ты смотри в мои глаза,
+                Брось трепаться о судьбе….»</p>
+            <span>— Михаил Круг</span>
+        </div>
     </div>
 
+</div>
+<script src="{% static 'js/project_list.js' %}"></script>
 </body>
 </html>
